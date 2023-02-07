@@ -1,0 +1,3 @@
+com.codeonline.common.swagger.config.SwaggerAutoConfiguration
+com.codeonline.common.swagger.config.SwaggerWebConfiguration
+com.codeonline.common.swagger.config.SwaggerBeanPostProcessor

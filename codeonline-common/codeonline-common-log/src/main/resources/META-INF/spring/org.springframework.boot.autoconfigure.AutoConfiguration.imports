@@ -1,0 +1,2 @@
+com.codeonline.common.log.service.AsyncLogService
+com.codeonline.common.log.aspect.LogAspect

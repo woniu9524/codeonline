@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeonline.function.mapper.CourseMapper">
+    <!-- 当Course类中的属性不为null时候更新字段   -->
+    <update id="updateCourse" parameterType="com.codeonline.function.domain.Course">
+        update business_course
+        <set>
+            <if test="courseName != null">
+                course_name = #{courseName},
+            </if>
+            <if test="teacherId != null">
+                teacher_id = #{teacherId},
+            </if>
+            <if test="courseStatus != null">
+                course_status = #{courseStatus},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+            <if test="courseStartTime != null">
+                course_start_time = #{courseStartTime},
+            </if>
+            <if test="courseEndTime != null">
+                course_end_time = #{courseEndTime},
+            </if>
+            <if test="courseWeek != null">
+                course_week = #{courseWeek},
+            </if>
+            update_by = #{updateBy},
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+    <select id="queryStudentsByCourseId" resultType="com.codeonline.function.domain.CourseStudent" parameterType="Long">
+        SELECT
+            user_id,
+            user_name,
+            nick_name,
+            phonenumber,
+            sys_user.email,
+            sys_dept.dept_name AS class_name,
+            parent_dept.dept_name AS collage_name
+        FROM
+            sys_user
+                LEFT JOIN sys_dept ON sys_user.dept_id = sys_dept.dept_id
+                LEFT JOIN sys_dept AS parent_dept ON sys_dept.parent_id = parent_dept.dept_id
+        WHERE
+                user_id IN ( SELECT user_id FROM business_user_and_course_relation WHERE course_id = #{courseId} )
+    </select>
+</mapper>
