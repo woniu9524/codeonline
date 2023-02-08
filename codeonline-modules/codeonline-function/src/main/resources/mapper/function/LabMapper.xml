@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeonline.function.mapper.LabMapper">
+<!-- @Insert("insert into business_lab(course_id,lab_name,lab_content,lab_start_time,lab_end_time,create_time,create_by,update_time,update_by) values(#{courseId},#{labName},#{labContent},#{labStartTime},#{labEndTime},sysdate(),#{createBy},sysdate(),#{updateBy})") -->
+    <insert id="addLab" parameterType="com.codeonline.function.domain.Lab" useGeneratedKeys="true" keyProperty="id">
+        insert into business_lab(course_id,lab_id,lab_name,lab_content,lab_start_time,lab_end_time,create_time,create_by,update_time,update_by)
+        values(#{courseId},#{labId},#{labName},#{labContent},#{labStartTime},#{labEndTime},sysdate(),#{createBy},sysdate(),#{updateBy})
+    </insert>
+    <update id="updateLab" parameterType="com.codeonline.function.domain.Lab">
+        update business_lab
+        <set>
+            <if test="labName != null">
+                lab_name = #{labName},
+            </if>
+            <if test="labContent != null">
+                lab_content = #{labContent},
+            </if>
+            <if test="labStartTime != null">
+                lab_start_time = #{labStartTime},
+            </if>
+            <if test="labEndTime != null">
+                lab_end_time = #{labEndTime},
+            </if>
+            update_by = #{updateBy},
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteLab" parameterType="String">
+        delete from business_lab where lab_id = #{labId}
+    </delete>
+</mapper>

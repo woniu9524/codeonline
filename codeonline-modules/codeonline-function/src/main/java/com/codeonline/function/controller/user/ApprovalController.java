@@ -1,4 +1,4 @@
-package com.codeonline.function.controller.user.approval;
+package com.codeonline.function.controller.user;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
 import com.codeonline.common.security.annotation.RequiresPermissions;

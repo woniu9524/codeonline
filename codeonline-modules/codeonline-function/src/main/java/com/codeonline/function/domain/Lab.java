@@ -15,7 +15,7 @@ import java.util.Date;
 public class Lab extends BaseEntity {
     private Long id;// id
 
-    private String labId;// 实验id
+    private Long labId;// 实验id
 
     private Long courseId;// 课程id
 

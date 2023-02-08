@@ -10,9 +10,7 @@ public interface CourseMapper {
     // 查询课程信息
     @Select("select * from business_course")
     List<Course> queryCourseAllInfo();
-    // 按照课程id查询课程信息
-    @Select("select * from business_course where id = #{courseId}")
-    Course queryCourseByCourseId(Long courseId);
+
     // 查询当前教师的所有课程
     @Select("select * from business_course where teacher_id = #{teacherId}")
     List<Course> queryCourseByTeacherId(Long teacherId);
@@ -32,24 +30,4 @@ public interface CourseMapper {
     // 批量删除课程
     @Delete("delete from business_course where id in (#{courseIds})")
     int deleteCourses(@Param("courseIds") String courseIds);
-
-    // 查询课程的所有学生，business_user_and_course_relation,sys_user
-    List<CourseStudent> queryStudentsByCourseId(@Param("courseId") Long courseId);
-
-    // 通过userName查询用户id
-    @Select("select user_id from sys_user where user_name = #{userName}")
-    Long queryUserIdByUserName(String userName);
-    // 查询学生是否已经在课程中
-    @Select("select count(*) from business_user_and_course_relation where user_id = #{userId} and course_id = #{courseId}")
-    int queryStudentIsInCourse(@Param("userId") Long userId, @Param("courseId") Long courseId);
-    // 添加学生到课程中
-    @Insert("insert into business_user_and_course_relation(user_id,course_id,create_time,create_by,update_time,update_by) values(#{userId},#{courseId},sysdate(),#{createBy},sysdate(),#{updateBy})")
-    int addStudentToCourse(@Param("userId") Long userId, @Param("courseId") Long courseId, @Param("createBy") String createBy, @Param("updateBy") String updateBy);
-    // 删除学生
-    @Delete("delete from business_user_and_course_relation where user_id = #{userId} and course_id = #{courseId}")
-    int deleteStudentFromCourse(@Param("userId") Long userId, @Param("courseId") Long courseId);
-
-    // 查询当前学生的所有课程
-    @Select("select * from business_course where id in (select course_id from business_user_and_course_relation where user_id = #{userId})")
-    List<Course> queryCourseByStudentId(@Param("userId") Long studentId);
 }
