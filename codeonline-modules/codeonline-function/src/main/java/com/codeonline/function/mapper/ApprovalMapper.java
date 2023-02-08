@@ -23,7 +23,11 @@ public interface ApprovalMapper {
 
     // 在sys_user_role中插入一条数据
     @Insert("insert into sys_user_role (user_id, role_id) values (#{userId}, #{roleId})")
-    int insertUserRole(Long userId, Long roleId);
+    int insertUserRole(@Param("userId") Long userId,@Param("roleId") Long roleId);
+
+    // 在sys_user_role中根据user_id更新role_id
+    @Update("update sys_user_role set role_id = #{roleId} where user_id = #{userId}")
+    int updateUserRoleByUserId( @Param("userId") Long userId,@Param("roleId") Long roleId);
 
     // 设置has_finished为1和update_by和update_time以及status
     @Update("update business_identity set has_finished = 1, update_by = #{updateBy}, update_time = sysdate(), status = #{status} where id = #{id}")

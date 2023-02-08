@@ -31,7 +31,7 @@ public class ApprovalServiceImpl implements ApprovalService {
         Identity identity = approvalMapper.selectPeopleById(id);
         Long userId = identity.getUserId();
         Long roleId = identity.getIdentityId();
-        approvalMapper.insertUserRole(userId, roleId);
+        approvalMapper.updateUserRoleByUserId(userId, roleId);
         approvalMapper.updateIdentityByUserId(SecurityUtils.getUsername(),"已通过",id);
         return AjaxResult.success("操作成功");
     }
