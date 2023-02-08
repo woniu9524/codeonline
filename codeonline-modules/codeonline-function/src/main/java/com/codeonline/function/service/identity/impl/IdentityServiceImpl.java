@@ -1,19 +1,19 @@
-package com.codeonline.function.service.impl;
+package com.codeonline.function.service.identity.impl;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
 import com.codeonline.function.domain.Identity;
 import com.codeonline.function.domain.vo.IdentityAffairVo;
 import com.codeonline.function.mapper.DeptMapper;
-import com.codeonline.function.mapper.IdentifyMapper;
-import com.codeonline.function.service.IdentifyService;
+import com.codeonline.function.mapper.IdentityMapper;
+import com.codeonline.function.service.identity.IdentityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IdentifyServiceImpl implements IdentifyService {
+public class IdentityServiceImpl implements IdentityService {
 
     @Autowired
-    private IdentifyMapper identifyMapper;
+    private IdentityMapper identityMapper;
 
     @Autowired
     private DeptMapper deptMapper;
@@ -28,10 +28,10 @@ public class IdentifyServiceImpl implements IdentifyService {
 
     @Override
     public AjaxResult readIdentity(Long userId) {
-        IdentityAffairVo identityAffairVo = identifyMapper.selectIdentifyByUserId(userId);
+        IdentityAffairVo identityAffairVo = identityMapper.selectIdentityByUserId(userId);
         if (identityAffairVo == null)
-            return AjaxResult.success(identityAffairVo);
-        identityAffairVo.setApproverName(identifyMapper.selectUserNameByUserId(identityAffairVo.getApproverId()));
+            return AjaxResult.success((Object) null);
+        identityAffairVo.setApproverName(identityMapper.selectUserNameByUserId(identityAffairVo.getApproverId()));
         return AjaxResult.success(identityAffairVo);
     }
 
@@ -56,7 +56,7 @@ public class IdentifyServiceImpl implements IdentifyService {
     * */
     @Override
     public AjaxResult readAdmins(Long universityId) {
-        return AjaxResult.success(identifyMapper.selectAdmins(universityId));
+        return AjaxResult.success(identityMapper.selectAdmins(universityId));
     }
 
     /*
@@ -64,7 +64,7 @@ public class IdentifyServiceImpl implements IdentifyService {
     * */
     @Override
     public AjaxResult readTeachers(Long collegeId) {
-        return AjaxResult.success(identifyMapper.selectTeachers(collegeId));
+        return AjaxResult.success(identityMapper.selectTeachers(collegeId));
     }
 
     /*
@@ -73,21 +73,21 @@ public class IdentifyServiceImpl implements IdentifyService {
     @Override
     public AjaxResult addIdentity(Identity identity) {
         // 查询deptId名称
-        String university = identifyMapper.selectDeptName(identity.getUniversityId());
-        String college = identifyMapper.selectDeptName(identity.getCollegeId());
-        String classes = identifyMapper.selectDeptName(identity.getClassId());
+        String university = identityMapper.selectDeptName(identity.getUniversityId());
+        String college = identityMapper.selectDeptName(identity.getCollegeId());
+        String classes = identityMapper.selectDeptName(identity.getClassId());
         identity.setUniversityName(university);
         identity.setCollegeName(college);
         identity.setClassName(classes);
         // 1. 判断是否已经存在该身份
-        if(identifyMapper.selectCountByIdentify(identity.getUserId()) > 0){
+        if(identityMapper.selectCountByIdentity(identity.getUserId()) > 0){
             // 修改身份
-            if(identifyMapper.updateIdentify(identity) > 0){
+            if(identityMapper.updateIdentity(identity) > 0){
                 return AjaxResult.success("修改身份成功");
             }
         }
         // 2. 添加身份
-        if(identifyMapper.insertIdentify(identity) > 0){
+        if(identityMapper.insertIdentity(identity) > 0){
             return AjaxResult.success("添加身份成功");
         }
         return AjaxResult.error("添加身份失败");

@@ -1,9 +1,9 @@
-package com.codeonline.function.service;
+package com.codeonline.function.service.identity;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
 import com.codeonline.function.domain.Identity;
 
-public interface IdentifyService {
+public interface IdentityService {
 
     AjaxResult addIdentity(Identity identity);
 

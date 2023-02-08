@@ -1,50 +1,52 @@
-package com.codeonline.function.controller.identify;
+package com.codeonline.function.controller.identity;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
 import com.codeonline.common.security.annotation.RequiresPermissions;
 import com.codeonline.common.security.utils.SecurityUtils;
 import com.codeonline.function.domain.Identity;
-import com.codeonline.function.service.IdentifyService;
+
+import com.codeonline.function.service.identity.IdentityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/identity")
-public class IdentifyController {
+public class IdentityController {
 
     @Autowired
-    private IdentifyService identifyService;
+    private IdentityService identityService;
 
-    @RequiresPermissions("identify:list")
+    @RequiresPermissions("identity:list")
     @GetMapping("/universities")
     public AjaxResult readUniversities() {
-        return identifyService.readUniversities();
+        return identityService.readUniversities();
     }
-    @RequiresPermissions("identify:list")
+
+    @RequiresPermissions("identity:list")
     @GetMapping("/colleges/{universityId}")
     public AjaxResult readCollege(@PathVariable("universityId") Long universityId) {
-        return identifyService.readColleges(universityId);
+        return identityService.readColleges(universityId);
     }
 
-    @RequiresPermissions("identify:list")
+    @RequiresPermissions("identity:list")
     @GetMapping("/classes/{collegeId}")
     public AjaxResult readClasses(@PathVariable Long collegeId) {
-        return identifyService.readClasses(collegeId);
+        return identityService.readClasses(collegeId);
     }
 
-    @RequiresPermissions("identify:list")
+    @RequiresPermissions("identity:list")
     @GetMapping("/admins/{universityId}")
     public AjaxResult readAdmins(@PathVariable Long universityId) {
-        return identifyService.readAdmins(universityId);
+        return identityService.readAdmins(universityId);
     }
 
-    @RequiresPermissions("identify:list")
+    @RequiresPermissions("identity:list")
     @GetMapping("/teachers/{collegeId}")
     public AjaxResult readTeachers(@PathVariable Long collegeId) {
-        return identifyService.readTeachers(collegeId);
+        return identityService.readTeachers(collegeId);
     }
 
-    @RequiresPermissions("identify:list")
+    @RequiresPermissions("identity:list")
     @PostMapping("/forms")
     public AjaxResult addIdentity(@RequestBody Identity identity) {
         Long userId = SecurityUtils.getUserId();
@@ -52,14 +54,15 @@ public class IdentifyController {
         identity.setUserId(userId);
         identity.setCreateBy(username);
         identity.setUpdateBy(username);
-        return identifyService.addIdentity(identity);
+        return identityService.addIdentity(identity);
     }
 
-    @RequiresPermissions("identify:list")
+    @RequiresPermissions("identity:list")
     @GetMapping()
     public AjaxResult readIdentity() {
         Long userId = SecurityUtils.getUserId();
-        return identifyService.readIdentity(userId);
+        return identityService.readIdentity(userId);
     }
+
 
 }
