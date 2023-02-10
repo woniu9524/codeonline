@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: codeonline-gateway
-  namespace: code-online
+  namespace: codeonline-projects
   labels:
     app: codeonline-gateway
     version: v1

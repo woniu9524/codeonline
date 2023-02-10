@@ -2,13 +2,13 @@ kind: Service
 apiVersion: v1
 metadata:
   name: codeonlie-visual-monitor
-  namespace: code-online
+  namespace: codeonline-projects
   labels:
     app: codeonlie-visual-monitor
     version: v1
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: >
-      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"kubesphere.io/creator":"admin","kubesphere.io/serviceType":"statelessservice"},"labels":{"app":"codeonlie-visual-monitor","version":"v1"},"name":"codeonlie-visual-monitor","namespace":"code-online"},"spec":{"clusterIP":"10.233.49.62","clusterIPs":["10.233.49.62"],"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"name":"tcp-8080","nodePort":31620,"port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app":"codeonlie-visual-monitor"},"sessionAffinity":"None","type":"ClusterIP"}}
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"kubesphere.io/creator":"admin","kubesphere.io/serviceType":"statelessservice"},"labels":{"app":"codeonlie-visual-monitor","version":"v1"},"name":"codeonlie-visual-monitor","namespace":"codeonline-projects"},"spec":{"clusterIP":"10.233.49.62","clusterIPs":["10.233.49.62"],"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"name":"tcp-8080","nodePort":31620,"port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app":"codeonlie-visual-monitor"},"sessionAffinity":"None","type":"ClusterIP"}}
     kubesphere.io/creator: admin
     kubesphere.io/serviceType: statelessservice
 spec:

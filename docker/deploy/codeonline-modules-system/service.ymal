@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: codeonlie-modules-system
-  namespace: code-online
+  namespace: codeonline-projects
   labels:
     app: codeonlie-modules-system
     version: v1

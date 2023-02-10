@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: codeonline-modules-harbor
-  namespace: code-online
+  namespace: codeonline-projects
   labels:
     app: codeonline-modules-harbor
     version: v1

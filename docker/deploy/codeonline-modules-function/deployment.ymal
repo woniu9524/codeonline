@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: codeonline-modules-function-v1
-  namespace: code-online
+  namespace: codeonline-projects
   labels:
     app: codeonline-modules-function
     version: v1

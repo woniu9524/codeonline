@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: codeonlie-visual-monitor-v1
-  namespace: code-online
+  namespace: codeonline-projects
   labels:
     app: codeonlie-visual-monitor
     version: v1
