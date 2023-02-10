@@ -1,0 +1,28 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: codeonline-gateway
+  namespace: code-online
+  labels:
+    app: codeonline-gateway
+    version: v1
+  annotations:
+    kubesphere.io/creator: admin
+    kubesphere.io/serviceType: statelessservice
+spec:
+  ports:
+    - name: tcp-8080
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: codeonline-gateway
+  clusterIP: 10.233.19.153
+  clusterIPs:
+    - 10.233.19.153
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster

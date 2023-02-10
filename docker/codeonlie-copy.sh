@@ -1,22 +1,3 @@
-#!/bin/sh
-
-# 复制项目的文件到对应docker路径，便于一键生成镜像。
-usage() {
-	echo "Usage: sh copy.sh"
-	exit 1
-}
-
-
-# copy sql
-echo "begin copy sql "
-cp ../sql/ry_20220814.sql ./mysql/db
-cp ../sql/ry_config_20220510.sql ./mysql/db
-
-# copy html
-echo "begin copy html "
-cp -r ../codeonline-ui/dist/** ./nginx/html/dist
-
-
 # copy jar
 echo "begin copy codeonline-gateway "
 cp ../codeonline-gateway/target/codeonline-gateway.jar ./ruoyi/gateway/jar
@@ -38,4 +19,3 @@ cp ../codeonline-modules/codeonline-job/target/codeonline-modules-job.jar ./ruoy
 
 echo "begin copy codeonline-modules-gen "
 cp ../codeonline-modules/codeonline-gen/target/codeonline-modules-gen.jar ./ruoyi/modules/gen/jar
-

@@ -1,0 +1,26 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: codeonline-modules-harbor
+  namespace: code-online
+  labels:
+    app: codeonline-modules-harbor
+    version: v1
+  annotations:
+    kubesphere.io/creator: admin
+    kubesphere.io/serviceType: statelessservice
+spec:
+  ports:
+    - name: tcp-8080
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: codeonline-modules-harbor
+
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster

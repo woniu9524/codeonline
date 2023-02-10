@@ -1,0 +1,35 @@
+## 基础镜像
+#FROM  openjdk:8-jre
+## author
+#MAINTAINER ruoyi
+#
+## 挂载目录
+#VOLUME /home/ruoyi
+## 创建目录
+#RUN mkdir -p /home/ruoyi
+## 指定路径
+#WORKDIR /home/ruoyi
+## 复制jar文件到路径
+#COPY ./jar/codeonline-modules-file.jar /home/ruoyi/codeonline-modules-file.jar
+## 启动文件服务
+#ENTRYPOINT ["java","-jar","codeonline-modules-file.jar"]
+
+FROM openjdk:8-jdk
+LABEL maintainer=zhangcheng
+
+ENV PARAMS="--server.port=8080 --spring.profiles.active=prod --spring.cloud.nacos.discovery.server-addr=codeonline-other-nacos.code-online:8848 --spring.cloud.nacos.config.server-addr=codeonline-other-nacos.code-online:8848 --spring.cloud.nacos.config.namespace=prod --spring.cloud.nacos.config.file-extension=yml"
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+
+# 挂载目录
+VOLUME /home/ruoyi
+# 创建目录
+RUN mkdir -p /home/ruoyi
+# 指定路径
+WORKDIR /home/ruoyi
+# 复制jar文件到路径
+COPY ./jar/codeonline-modules-file.jar /home/ruoyi/codeonline-modules-file.jar
+
+EXPOSE 8080
+
+# 启动认证服务
+ENTRYPOINT ["/bin/sh","-c","java -Dfile.encoding=utf8 -Djava.security.egd=file:/dev/./urandom -jar codeonline-modules-file.jar ${PARAMS}"]

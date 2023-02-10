@@ -1,0 +1,26 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: codeonlie-modules-system
+  namespace: code-online
+  labels:
+    app: codeonlie-modules-system
+    version: v1
+  annotations:
+    kubesphere.io/creator: admin
+    kubesphere.io/serviceType: statelessservice
+spec:
+  ports:
+    - name: tcp-8080
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: codeonlie-modules-system
+
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
