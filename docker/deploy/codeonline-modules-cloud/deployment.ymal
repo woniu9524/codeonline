@@ -31,7 +31,7 @@ spec:
             type: ''
       containers:
         - name: container-modules-cloud
-          image: 'REGISTRY_VAR/codeonline-dev/codeonlie-modules-cloud:IMAGE_TAG_VAR'
+          image: 'REGISTRY_VAR/HARBOR_NAMESPACE_VAR/codeonlie-modules-cloud:IMAGE_TAG_VAR'
           ports:
             - name: tcp-8080
               containerPort: 8080
