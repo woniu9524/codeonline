@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.codeonline.cloud.k8s.mapper.K8sMapper">
+
+    <insert id="insertK8sConfigure" parameterType="com.codeonline.cloud.k8s.model.K8sConfigureJson" useGeneratedKeys="true" keyProperty="id">
+        insert into k8s_configure (configure) values (#{configure})
+    </insert>
+</mapper>

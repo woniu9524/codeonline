@@ -51,4 +51,14 @@ public class CacheConstants
      * 登录账户密码错误次数 redis key
      */
     public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
+
+    /**
+     * harbor文件 redis key
+     */
+    public static final String HARBOR_FILE_KEY = "harbor_file:";
+
+    /**
+     * harbor异步处理上传 redis key
+     */
+    public static final String HARBOR_ASYNC_UPLOAD_KEY = "harbor_async_upload:";
 }
