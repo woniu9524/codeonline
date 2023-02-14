@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 镜像市场
  */
 @RestController
-@RequestMapping("/market")
+@RequestMapping("/harbor/market")
 public class MarketController {
     @Autowired
     private IMarketService marketService;

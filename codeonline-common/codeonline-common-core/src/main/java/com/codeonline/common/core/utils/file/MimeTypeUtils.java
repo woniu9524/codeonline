@@ -36,7 +36,13 @@ public class MimeTypeUtils
             // 视频格式
             "mp4", "avi", "rmvb",
             // pdf
-            "pdf" };
+            "pdf",
+            // 镜像
+            "tar","tar.gz", "tar.bz2", "tar.xz", "tar.lz4", "tar.lzma", "tar.lzo", "tar.zst", "tar.sz", "tar.Z", "tar.z",
+            // dockerfile
+            ""
+
+    };
 
     public static String getExtension(String prefix)
     {

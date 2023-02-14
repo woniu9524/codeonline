@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 镜像管理类
  */
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/harbor/image")
 public class ImageController {
     @Autowired
     private ImageService imageService;

@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/harbor/upload")
 public class UploadController {
 
     @Autowired
@@ -124,6 +124,4 @@ public class UploadController {
         }
         return AjaxResult.success(resultMap);
     }
-
-
 }
