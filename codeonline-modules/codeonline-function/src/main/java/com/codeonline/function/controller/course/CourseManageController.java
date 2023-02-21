@@ -1,6 +1,7 @@
 package com.codeonline.function.controller.course;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
+import com.codeonline.common.security.utils.SecurityUtils;
 import com.codeonline.function.domain.Lab;
 import com.codeonline.function.service.course.CourseManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,12 @@ public class CourseManageController {
     }
 
     /* 添加实验到课程 */
-    @PostMapping("experiments")
-    public AjaxResult addExperimentToCourse( @RequestBody Lab experiments){
+    @PostMapping("experiments/{courseId}")
+    public AjaxResult addExperimentToCourse(@PathVariable Long courseId,@RequestBody Lab experiments){
+        experiments.setCourseId(courseId);
+        String createBy = SecurityUtils.getUsername();
+        experiments.setCreateBy(createBy);
+        experiments.setUpdateBy(createBy);
         return courseManageService.addExperimentToCourse(experiments);
     }
 

@@ -19,10 +19,12 @@ public class K8sController {
     private IK8sService k8sService;
 
     @Log(title = "k8s控制",businessType = BusinessType.INSERT)
-    @PostMapping("/configures")
-    public AjaxResult createK8sConfigure(@RequestBody K8sConfigureVo k8sConfigureVo){
+    @PostMapping("/configures/{labId}")
+    public AjaxResult createK8sConfigure(@PathVariable String labId,@RequestBody K8sConfigureVo k8sConfigureVo){
         // 设置用户id
         k8sConfigureVo.setUserId(SecurityUtils.getUserId());
+        // 设置实验id
+        k8sConfigureVo.setLabId(labId);
         return k8sService.createK8sConfigure(k8sConfigureVo);
     }
 
