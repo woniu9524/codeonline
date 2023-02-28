@@ -28,7 +28,7 @@
         </set>
         where id = #{id}
     </update>
-    <delete id="deleteLab" parameterType="String">
+    <delete id="deleteLab" parameterType="Long">
         delete from business_lab where lab_id = #{labId}
     </delete>
 </mapper>

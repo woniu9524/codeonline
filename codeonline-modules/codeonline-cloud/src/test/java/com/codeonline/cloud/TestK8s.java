@@ -2,7 +2,6 @@ package com.codeonline.cloud;
 
 
 import com.alibaba.nacos.shaded.com.google.gson.Gson;
-import com.codeonline.common.core.constant.K8sConstants;
 import com.codeonline.common.core.utils.StringUtils;
 import com.codeonline.cloud.k8s.mapper.K8sMapper;
 import com.codeonline.cloud.k8s.model.K8sConfigure;
@@ -174,7 +173,6 @@ public class TestK8s {
 
     @Test
     public void service() throws IOException {
-
     }
 
 

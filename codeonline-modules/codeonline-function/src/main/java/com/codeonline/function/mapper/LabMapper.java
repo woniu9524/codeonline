@@ -40,5 +40,11 @@ public interface LabMapper {
     int deleteK8sConfigureByLabId(@Param("labId") Long labId);
 
 
+    /* 根据labId删除k8s配置关系 */
+    @Delete("delete from k8s_configure_relation where lab_id=#{labId}")
+    int deleteK8sConfigureRelationByLabId(@Param("labId") Long labId);
+
+
+
 }
 

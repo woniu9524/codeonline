@@ -94,11 +94,12 @@ public class CourseManageServiceImpl implements CourseManageService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public AjaxResult deleteExperimentFromCourse(Long experimentId) {
-        labMapper.deleteK8sConfigureByLabId(experimentId);
+        labMapper.deleteK8sConfigureRelationByLabId(experimentId);
         int i = labMapper.deleteLab(experimentId);
         if (i > 0) {
             return AjaxResult.success("删除成功");
         }
         return AjaxResult.error("删除失败");
     }
+
 }

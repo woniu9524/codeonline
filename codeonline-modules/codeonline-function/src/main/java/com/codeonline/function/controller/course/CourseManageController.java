@@ -65,8 +65,9 @@ public class CourseManageController {
     }
 
     /* 修改课程实验 */
-    @PutMapping("experiments")
-    public AjaxResult updateExperimentFromCourse(@RequestBody Lab experiments){
+    @PutMapping("experiments/{courseId}")
+    public AjaxResult updateExperimentFromCourse(@PathVariable Long courseId,@RequestBody Lab experiments){
+        experiments.setCourseId(courseId);
         return courseManageService.updateExperimentFromCourse(experiments);
     }
 

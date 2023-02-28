@@ -28,11 +28,6 @@ public class K8sController {
         return k8sService.createK8sConfigure(k8sConfigureVo);
     }
 
-    @Log(title = "k8s控制",businessType = BusinessType.INSERT)
-    @PostMapping("/deployments/{labId}")
-    public AjaxResult createK8sDeploy(@PathVariable("labId") String labId) throws IOException {
-        return k8sService.createK8sDeploy(labId);
-    }
 
 
     @Log(title = "k8s控制",businessType = BusinessType.INSERT)
@@ -42,9 +37,17 @@ public class K8sController {
     }
 
     @Log(title = "k8s控制",businessType = BusinessType.INSERT)
-    @PutMapping("/configures")
-    public AjaxResult updateK8sConfigureByLabId(@RequestBody K8sConfigureVo k8sConfigureVo){
+    @PutMapping("/configures/{labId}")
+    public AjaxResult updateK8sConfigureByLabId(@PathVariable String labId,@RequestBody K8sConfigureVo k8sConfigureVo){
+        k8sConfigureVo.setLabId(labId);
         return k8sService.updateK8sConfigureByLabId(k8sConfigureVo);
+    }
+
+    /* 开启容器 */
+    @Log(title = "k8s控制",businessType = BusinessType.INSERT)
+    @PostMapping("/deployments/{labId}")
+    public AjaxResult createK8sDeploy(@PathVariable("labId") String labId) throws IOException {
+        return k8sService.createK8sDeploy(labId);
     }
 
     /*
