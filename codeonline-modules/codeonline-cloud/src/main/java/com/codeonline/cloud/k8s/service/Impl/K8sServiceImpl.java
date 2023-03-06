@@ -91,7 +91,7 @@ public class K8sServiceImpl implements IK8sService {
         Long studentId = SecurityUtils.getUserId();
         String studentName = SecurityUtils.getUsername();
         K8sUserAndDeployRelation relation = k8sMapper.selectK8sUserAndDeployRelationByLabIdAndUserId(labId, studentId);
-        if (relation != null){
+        if (relation != null && !relation.isHasDestroy()){
             return AjaxResult.error("已经创建过了");
         }
         // 读取配置文件
@@ -126,7 +126,14 @@ public class K8sServiceImpl implements IK8sService {
         k8sUserAndDeployRelation.setCreateBy(studentName);
         k8sUserAndDeployRelation.setUpdateBy(studentName);
         k8sUserAndDeployRelation.setK8sConfigure(k8sConfigure);
-        k8sMapper.insertK8sUserAndDeployRelation(k8sUserAndDeployRelation);
+        if (relation == null){
+            // 插入数据库
+            k8sMapper.insertK8sUserAndDeployRelation(k8sUserAndDeployRelation);
+        }else{
+            // 更新数据库
+            k8sMapper.updateK8sUserAndDeployRelation(k8sUserAndDeployRelation);
+        }
+
         return AjaxResult.success(k8sUserAndDeployRelation);
     }
 
@@ -155,7 +162,7 @@ public class K8sServiceImpl implements IK8sService {
     @Override
     public AjaxResult queryLabSituationByUserId(Long userId, String labId) {
         K8sUserAndDeployRelation k8sUserAndDeployRelation = k8sMapper.selectK8sUserAndDeployRelationByLabIdAndUserId(labId, userId);
-        if (k8sUserAndDeployRelation == null){
+        if (k8sUserAndDeployRelation == null || k8sUserAndDeployRelation.isHasDestroy()){
             return AjaxResult.error("未创建，请先创建");
         }
 //        // 读取配置文件
@@ -199,7 +206,10 @@ public class K8sServiceImpl implements IK8sService {
         K8sUserAndDeployRelation k8sUserAndDeployRelation = k8sMapper.selectK8sUserAndDeployRelationByLabIdAndUserId(labId, userId);
         if (k8sUserAndDeployRelation == null){
             return AjaxResult.error("未创建，不需要删除");
+        }else if(k8sUserAndDeployRelation.isHasDestroy()){
+            return AjaxResult.error("已销毁，不需要删除");
         }
+        // 删除deployment
         k8sUtil.deleteDeployment(k8sUserAndDeployRelation.getDeploymentName());
         k8sUtil.deleteService(k8sUserAndDeployRelation.getServiceName());
         k8sMapper.deleteLabByStudent(labId,userId);

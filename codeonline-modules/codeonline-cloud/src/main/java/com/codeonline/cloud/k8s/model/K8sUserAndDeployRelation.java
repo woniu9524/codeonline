@@ -3,6 +3,8 @@ package com.codeonline.cloud.k8s.model;
 import com.codeonline.common.core.web.domain.BaseEntity;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @Author: zhangcheng
  * @Date: 2023/1/13 9:05 星期五
@@ -25,5 +27,9 @@ public class K8sUserAndDeployRelation extends BaseEntity {
     private String serviceName;// service名称
 
     private K8sConfigure k8sConfigure;// k8s配置信息
+
+    private Date destroyTime;// 销毁时间
+
+    private boolean hasDestroy;// 是否已经销毁
 
 }
