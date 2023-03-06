@@ -26,4 +26,11 @@ public class LabController {
     public AjaxResult queryExperimentInfo(@PathVariable Long experimentId){
         return labService.queryExperimentInfo(experimentId);
     }
+
+    /* 查询所有学生实验完成信息 */
+    @GetMapping("/students/{labId}")
+    public AjaxResult queryAllStudentLabInfo(@PathVariable Long labId){
+        return labService.queryAllStudentLabInfo(labId);
+    }
+
 }

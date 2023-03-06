@@ -61,7 +61,7 @@ public interface K8sMapper {
     int insertK8sUserAndDeployRelation(K8sUserAndDeployRelation k8sUserAndDeployRelation);
 
     // 更新全部数据
-    @Update("update k8s_user_and_deploy_relation set teacher_id=#{teacherId},deploy_namespace=#{deployNamespace},deployment_name=#{deploymentName},service_name=#{serviceName},create_by=#{createBy},create_time=sysdate(),update_by=#{updateBy},update_time=sysdate(),has_destroy=0 where user_id=#{userId} and lab_id=#{labId}")
+    @Update("update k8s_user_and_deploy_relation set teacher_id=#{teacherId},deploy_namespace=#{deployNamespace},deployment_name=#{deploymentName},service_name=#{serviceName},create_by=#{createBy},update_by=#{updateBy},update_time=sysdate(),destroy_time=null,has_destroy=0 where user_id=#{userId} and lab_id=#{labId}")
     int updateK8sUserAndDeployRelation(K8sUserAndDeployRelation k8sUserAndDeployRelation);
 
     /*

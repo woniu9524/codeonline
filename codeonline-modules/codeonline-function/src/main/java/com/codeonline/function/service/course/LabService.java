@@ -9,4 +9,6 @@ import com.codeonline.common.core.web.domain.AjaxResult;
  */
 public interface LabService {
     public AjaxResult queryExperimentInfo(Long experimentId);
+
+    AjaxResult queryAllStudentLabInfo(Long labId);
 }

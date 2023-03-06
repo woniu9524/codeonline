@@ -83,12 +83,11 @@ public class K8sServiceImpl implements IK8sService {
     }
 
     @Override
-    public AjaxResult createK8sDeploy(String labId) throws IOException {
+    public AjaxResult createK8sDeploy(String labId,Long studentId) throws IOException {
 
         // 读取teacherId
         Long teacherId = k8sMapper.selectUserIdByLabId(labId);
-        // 读取userId
-        Long studentId = SecurityUtils.getUserId();
+
         String studentName = SecurityUtils.getUsername();
         K8sUserAndDeployRelation relation = k8sMapper.selectK8sUserAndDeployRelationByLabIdAndUserId(labId, studentId);
         if (relation != null && !relation.isHasDestroy()){
