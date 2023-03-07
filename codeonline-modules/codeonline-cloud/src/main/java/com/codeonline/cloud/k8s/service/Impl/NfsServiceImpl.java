@@ -21,8 +21,10 @@ public class NfsServiceImpl implements INfsService {
     private String nfsBasePath;
 
     @Override
-    public AjaxResult selectLabFilesByLabId(Long courseId, String labId, Long userId) {
+    public AjaxResult selectLabFilesByLabId(Long labId, Long userId) {
+        Long courseId = nfsMapper.selectCourseIdByLabId(labId);
         Long teacherId = nfsMapper.selectUserIdByCourseId(courseId);
+        // TODO 这里位置要改
         nfsBasePath = "C:/Users/Administrator/Desktop/data/nfs";
         List<Map<String, Object>> fileTree = new ArrayList<>();
         String path = "";
@@ -31,9 +33,12 @@ public class NfsServiceImpl implements INfsService {
         } else {
             path = nfsBasePath + "/" + teacherId + "/" + labId+"/"+userId;
         }
-//        path="G:\\nacos-server-2.1.2\\nacos\\bin";
-        NfsUtil.showList(new File(path), fileTree);
-        fileTree = (List<Map<String, Object>>) fileTree.get(0).get("children");
+        try {
+            NfsUtil.showList(new File(path), fileTree);
+            fileTree = (List<Map<String, Object>>) fileTree.get(0).get("children");
+        } catch (IndexOutOfBoundsException e) {
+            // 没有文件
+        }
         return AjaxResult.success(fileTree);
     }
 
