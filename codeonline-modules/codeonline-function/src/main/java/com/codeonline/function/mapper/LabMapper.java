@@ -72,5 +72,10 @@ public interface LabMapper {
     /* 更新成绩信息 */
     @Update("update business_user_lab_score set score = #{score},comment = #{comment} where lab_id = #{labId} and student_id = #{studentId}")
     void updateLabScoreByLabIdAndStudentId(@Param("labId") Long experimentId,@Param("studentId") Long studentId,@Param("score") Integer score,@Param("comment") String comment);
+
+    /* 查询labId下全部成绩 */
+    @Select("select * from business_user_lab_score where lab_id = #{labId}")
+    List<StudentLabScore> queryAllLabScoreByLabId(@Param("labId") Long experimentId);
+
 }
 

@@ -32,6 +32,7 @@ public class LabServiceImpl implements LabService {
     @Override
     public AjaxResult queryAllStudentLabInfo(Long labId) {
         List<StudentAndLabInfo> studentAndLabInfos = labMapper.queryAllStudentLabInfo(labId);
+        List<StudentLabScore> studentLabScores = labMapper.queryAllLabScoreByLabId(labId);
         studentAndLabInfos.stream().forEach(studentAndLabInfo -> {
             if (studentAndLabInfo.getHasDestroy() == null) {
                 studentAndLabInfo.setLabStatus("未开始");
@@ -45,6 +46,11 @@ public class LabServiceImpl implements LabService {
                 //开始时间减去当前时间
                 studentAndLabInfo.setLabTime((System.currentTimeMillis() - studentAndLabInfo.getCreateTime().getTime()) / (1000 * 60) + "分钟");
             }
+            studentLabScores.stream().forEach(studentLabScore -> {
+                if (studentAndLabInfo.getUserId().equals(studentLabScore.getStudentId())) {
+                    studentAndLabInfo.setScore(studentLabScore.getScore());
+                }
+            });
         });
         return AjaxResult.success(studentAndLabInfos);
     }

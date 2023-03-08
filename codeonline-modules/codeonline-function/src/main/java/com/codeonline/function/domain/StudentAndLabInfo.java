@@ -25,5 +25,6 @@ public class StudentAndLabInfo {
 
     private String labStatus;
     private String labTime;
+    private Integer Score;
 
 }
