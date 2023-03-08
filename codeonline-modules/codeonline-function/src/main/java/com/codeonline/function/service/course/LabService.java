@@ -9,4 +9,8 @@ import com.codeonline.common.core.web.domain.AjaxResult;
  */
 public interface LabService {
     public AjaxResult queryExperimentInfo(Long experimentId);
+
+    AjaxResult submitExperimentScore(Long experimentId,Long studentId, Integer score, String comment);
+
+    AjaxResult queryExperimentScore(Long experimentId, Long studentId);
 }
