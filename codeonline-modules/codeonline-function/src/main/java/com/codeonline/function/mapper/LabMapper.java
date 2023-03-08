@@ -2,6 +2,8 @@ package com.codeonline.function.mapper;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
 import com.codeonline.function.domain.Lab;
+import com.codeonline.function.domain.StudentLabScore;
+import org.apache.ibatis.annotations.*;
 import com.codeonline.function.domain.StudentAndLabInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
@@ -55,5 +57,20 @@ public interface LabMapper {
             "LEFT JOIN ( SELECT * FROM k8s_user_and_deploy_relation ) AS t2 USING ( user_id )) AS t3 LEFT JOIN\n" +
             "(SELECT user_id,user_name,nick_name FROM sys_user) AS t4 USING(user_id)")
     List<StudentAndLabInfo> queryAllStudentLabInfo(@Param("labId") Long labId);
+    /*查询成绩信息*/
+    @Select("select * from business_user_lab_score where lab_id = #{labId} and student_id = #{studentId}")
+    StudentLabScore queryLabScoreByLabIdAndStudentId(@Param("labId") Long experimentId,@Param("studentId") Long studentId);
+
+    /* 通过courseId查询labId */
+    @Select("select course_id from business_lab where lab_id = #{labId}")
+    Long queryCourseIdByLabId(@Param("labId") Long experimentId);
+
+    /* 插入成绩信息 */
+    @Insert("insert into business_user_lab_score(course_id,student_id,teacher_id,lab_id,score,comment) values(#{courseId},#{studentId},#{teacherId},#{labId},#{score},#{comment})")
+    int insertLabScoreByLabIdAndStudentId(StudentLabScore studentLabScore);
+
+    /* 更新成绩信息 */
+    @Update("update business_user_lab_score set score = #{score},comment = #{comment} where lab_id = #{labId} and student_id = #{studentId}")
+    void updateLabScoreByLabIdAndStudentId(@Param("labId") Long experimentId,@Param("studentId") Long studentId,@Param("score") Integer score,@Param("comment") String comment);
 }
 

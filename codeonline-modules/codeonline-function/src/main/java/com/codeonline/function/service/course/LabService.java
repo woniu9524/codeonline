@@ -11,4 +11,8 @@ public interface LabService {
     public AjaxResult queryExperimentInfo(Long experimentId);
 
     AjaxResult queryAllStudentLabInfo(Long labId);
+
+    AjaxResult submitExperimentScore(Long experimentId,Long studentId, Integer score, String comment);
+
+    AjaxResult queryExperimentScore(Long experimentId, Long studentId);
 }
