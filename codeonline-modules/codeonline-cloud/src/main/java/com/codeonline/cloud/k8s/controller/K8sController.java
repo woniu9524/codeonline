@@ -45,18 +45,22 @@ public class K8sController {
 
     /* 开启容器 */
     @Log(title = "k8s控制",businessType = BusinessType.INSERT)
-    @PostMapping("/deployments/{labId}")
-    public AjaxResult createK8sDeploy(@PathVariable("labId") String labId) throws IOException {
-        return k8sService.createK8sDeploy(labId);
+    @PostMapping("/deployments/{labId}/{userId}")
+    public AjaxResult createK8sDeploy(@PathVariable("labId") String labId, @PathVariable Long userId) throws IOException {
+        // TODO 安全问题
+        if (userId == -1)
+            userId = SecurityUtils.getUserId();
+        return k8sService.createK8sDeploy(labId,userId);
     }
 
     /*
     *  启动k8s实验环境
     * */
     @Log(title = "k8s控制",businessType = BusinessType.INSERT)
-    @GetMapping("/labStart/{labId}")
-    public AjaxResult labStart(@PathVariable String labId){
-        Long userId = SecurityUtils.getUserId();
+    @GetMapping("/labStart/{labId}/{userId}")
+    public AjaxResult labStart(@PathVariable String labId,@PathVariable Long userId){
+        if (userId == -1)
+            userId = SecurityUtils.getUserId();
         return k8sService.queryLabSituationByUserId(userId,labId);
     }
 
@@ -64,9 +68,10 @@ public class K8sController {
     *  学生删除实验
      */
     @Log(title = "k8s控制",businessType = BusinessType.DELETE)
-    @DeleteMapping("/labDelete/{labId}")
-    public AjaxResult labDelete(@PathVariable String labId){
-        Long userId = SecurityUtils.getUserId();
+    @DeleteMapping("/labDelete/{labId}/{userId}")
+    public AjaxResult labDelete(@PathVariable String labId,@PathVariable Long userId){
+        if (userId == -1)
+            userId = SecurityUtils.getUserId();
         return k8sService.deleteLabByStudent(labId,userId);
     }
 

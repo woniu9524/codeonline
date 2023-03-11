@@ -13,7 +13,7 @@ import java.io.IOException;
 public interface IK8sService {
     AjaxResult createK8sConfigure(K8sConfigureVo k8sConfigureVo);
 
-    AjaxResult createK8sDeploy(String labId) throws IOException;
+    AjaxResult createK8sDeploy(String labId,Long studentId) throws IOException;
 
     // 根据labId获取k8s配置信息
     AjaxResult getK8sConfigureByLabId(String labId);

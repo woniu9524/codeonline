@@ -27,3 +27,6 @@ spring:
     multipart:
       max-file-size: 2048MB
       max-request-size: 2048MB
+logging:
+  level:
+    com.codeonline.cloud: debug

@@ -15,7 +15,7 @@ public class NfsUtil {
     public static void showList(File file, List<Map<String, Object>> fileTree) {
         Map<String, Object> map = new HashMap<>();
         if (file.isDirectory()) {//如果是目录
-            map.put("name", file.getName());
+            map.put("label", "📂 "+file.getName());
             map.put("path", file.getPath());
             List<Map<String, Object>> childTree = new ArrayList<>();
             File[] listFiles = file.listFiles();//获取当前路径下的所有文件和目录,返回File对象数组
@@ -25,7 +25,7 @@ public class NfsUtil {
             map.put("children", childTree);
             fileTree.add(map);
         } else if (file.isFile()) {//如果是文件
-            map.put("name", file.getName());
+            map.put("label", "📃 "+file.getName());
             map.put("isLeaf", true);
             map.put("path", file.getPath());
             fileTree.add(map);

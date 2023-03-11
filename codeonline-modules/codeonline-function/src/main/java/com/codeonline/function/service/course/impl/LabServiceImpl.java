@@ -1,6 +1,7 @@
 package com.codeonline.function.service.course.impl;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
+import com.codeonline.function.domain.StudentAndLabInfo;
 import com.codeonline.common.security.utils.SecurityUtils;
 import com.codeonline.function.domain.StudentLabScore;
 import com.codeonline.function.mapper.LabMapper;
@@ -8,6 +9,8 @@ import com.codeonline.function.service.course.LabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Author: zhangcheng
@@ -24,6 +27,32 @@ public class LabServiceImpl implements LabService {
     @Override
     public AjaxResult queryExperimentInfo(Long experimentId) {
         return AjaxResult.success(labMapper.queryLabByLabId(experimentId));
+    }
+
+    @Override
+    public AjaxResult queryAllStudentLabInfo(Long labId) {
+        List<StudentAndLabInfo> studentAndLabInfos = labMapper.queryAllStudentLabInfo(labId);
+        List<StudentLabScore> studentLabScores = labMapper.queryAllLabScoreByLabId(labId);
+        studentAndLabInfos.stream().forEach(studentAndLabInfo -> {
+            if (studentAndLabInfo.getHasDestroy() == null) {
+                studentAndLabInfo.setLabStatus("未开始");
+                studentAndLabInfo.setLabTime("0分钟");
+            } else if (studentAndLabInfo.getHasDestroy()) {
+                studentAndLabInfo.setLabStatus("已结束");
+                //开始时间减去结束时间
+                studentAndLabInfo.setLabTime((studentAndLabInfo.getDestroyTime().getTime() - studentAndLabInfo.getCreateTime().getTime()) / (1000 * 60) + "分钟");
+            } else {
+                studentAndLabInfo.setLabStatus("进行中");
+                //开始时间减去当前时间
+                studentAndLabInfo.setLabTime((System.currentTimeMillis() - studentAndLabInfo.getCreateTime().getTime()) / (1000 * 60) + "分钟");
+            }
+            studentLabScores.stream().forEach(studentLabScore -> {
+                if (studentAndLabInfo.getUserId().equals(studentLabScore.getStudentId())) {
+                    studentAndLabInfo.setScore(studentLabScore.getScore());
+                }
+            });
+        });
+        return AjaxResult.success(studentAndLabInfos);
     }
 
     @Override

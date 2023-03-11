@@ -57,17 +57,23 @@ public interface K8sMapper {
     /*
      *  插入ks8_user_and_deploy_relation
      */
-    @Insert("insert into k8s_user_and_deploy_relation(user_id,teacher_id,lab_id,deploy_namespace,deployment_name,service_name,create_by,create_time,update_by,update_time) values (#{userId},#{teacherId},#{labId},#{deployNamespace},#{deploymentName},#{serviceName},#{createBy},sysdate(),#{updateBy},sysdate())")
+    @Insert("insert into k8s_user_and_deploy_relation(user_id,teacher_id,lab_id,deploy_namespace,deployment_name,service_name,create_by,create_time,update_by,update_time,has_destroy) values (#{userId},#{teacherId},#{labId},#{deployNamespace},#{deploymentName},#{serviceName},#{createBy},sysdate(),#{updateBy},sysdate(),0)")
     int insertK8sUserAndDeployRelation(K8sUserAndDeployRelation k8sUserAndDeployRelation);
 
+    // 更新全部数据
+    @Update("update k8s_user_and_deploy_relation set teacher_id=#{teacherId},deploy_namespace=#{deployNamespace},deployment_name=#{deploymentName},service_name=#{serviceName},create_by=#{createBy},update_by=#{updateBy},update_time=sysdate(),destroy_time=null,has_destroy=0 where user_id=#{userId} and lab_id=#{labId}")
+    int updateK8sUserAndDeployRelation(K8sUserAndDeployRelation k8sUserAndDeployRelation);
+
     /*
-    *  根据labId,userId查询k8s_user_and_deploy_relation
-    * */
+     *  根据labId,userId查询k8s_user_and_deploy_relation
+     * */
     @Select("select * from k8s_user_and_deploy_relation where lab_id=#{labId} and user_id=#{userId}")
     K8sUserAndDeployRelation selectK8sUserAndDeployRelationByLabIdAndUserId(@Param("labId") String labId, @Param("userId") Long userId);
 
-    // 学生删除实验
-    @Delete("delete from k8s_user_and_deploy_relation where lab_id = #{labId} and user_id = #{userId}")
-    int deleteLabByStudent(@Param("labId") String labId,@Param("userId") Long userId);
+    // 学生删除实验，软删除
+    //@Delete("delete from k8s_user_and_deploy_relation where lab_id = #{labId} and user_id = #{userId}")
+    @Update("update k8s_user_and_deploy_relation set has_destroy = 1,destroy_time = sysdate() where lab_id = #{labId} and user_id = #{userId}")
+    int deleteLabByStudent(@Param("labId") String labId, @Param("userId") Long userId);
+
 
 }
