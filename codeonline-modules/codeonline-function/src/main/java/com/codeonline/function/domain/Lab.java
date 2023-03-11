@@ -29,6 +29,8 @@ public class Lab extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date labEndTime;// 实验结束时间
 
+    private String fileUrl;// 实验文件地址
+
 
 
 }

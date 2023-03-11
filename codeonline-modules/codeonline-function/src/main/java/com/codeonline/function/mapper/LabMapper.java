@@ -77,5 +77,6 @@ public interface LabMapper {
     @Select("select * from business_user_lab_score where lab_id = #{labId}")
     List<StudentLabScore> queryAllLabScoreByLabId(@Param("labId") Long experimentId);
 
+
 }
 

@@ -44,4 +44,6 @@ public class LabController {
     public AjaxResult queryExperimentScore(@PathVariable Long experimentId, @PathVariable Long studentId){
         return labService.queryExperimentScore(experimentId,studentId);
     }
+
+
 }

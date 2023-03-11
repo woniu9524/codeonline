@@ -2,6 +2,9 @@ package com.codeonline.function.service.course;
 
 import com.codeonline.common.core.web.domain.AjaxResult;
 import com.codeonline.function.domain.Lab;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @Author: zhangcheng
@@ -25,4 +28,6 @@ public interface CourseManageService {
     AjaxResult updateExperimentFromCourse(Lab experiments);
 
     AjaxResult deleteExperimentFromCourse(Long experimentId);
+
+    AjaxResult uploadExperimentFile(Long courseId,Long teacherId, MultipartFile experimentFile);
 }
