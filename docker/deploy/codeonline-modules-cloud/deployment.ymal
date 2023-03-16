@@ -51,7 +51,7 @@ spec:
       serviceAccount: default
       securityContext: {}
       imagePullSecrets:
-        - name: user-registry-secret
+        - name: harbor-registry-secret
       schedulerName: default-scheduler
   strategy:
     type: RollingUpdate

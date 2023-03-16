@@ -53,7 +53,7 @@ public interface LabMapper {
     @Select("SELECT * FROM (SELECT\n" +
             "\tcourse_id,user_id,teacher_id,lab_id,create_by,create_time,t2.destroy_time,t2.has_destroy\n" +
             "FROM\n" +
-            "\t( SELECT user_id, course_id FROM business_user_and_course_relation WHERE course_id IN ( SELECT course_id FROM business_lab WHERE lab_id = 1677273056645 ) ) AS t1\n" +
+            "\t( SELECT user_id, course_id FROM business_user_and_course_relation WHERE course_id IN ( SELECT course_id FROM business_lab WHERE lab_id = #{labId} ) ) AS t1\n" +
             "LEFT JOIN ( SELECT * FROM k8s_user_and_deploy_relation ) AS t2 USING ( user_id )) AS t3 LEFT JOIN\n" +
             "(SELECT user_id,user_name,nick_name FROM sys_user) AS t4 USING(user_id)")
     List<StudentAndLabInfo> queryAllStudentLabInfo(@Param("labId") Long labId);

@@ -94,7 +94,7 @@ public class UploadServiceImpl implements IUploadService {
         String path = split[1];
         path = BaseUrl + path;
         //TODO 此处假设path为：/root/test/base-centos.tar
-        path = "/root/test/base-vscode.tar";
+        path = "/root/test/jupyter-base.jar";
 
         /*
         * 使用命令的方式，加载镜像，打标签，登录harbor，再推送到harbor中去

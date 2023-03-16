@@ -189,7 +189,7 @@ public class K8sServiceImpl implements IK8sService {
                     if("vscode".equals(portMap.get("service"))||"http".equals(portMap.get("service"))){
                         map.put("url","http://"+masterIp+":"+nodePort);
                     }else if("jupyter".equals(portMap.get("service"))){
-                        map.put("url","http://"+masterIp+":"+nodePort+"/lab");
+                        map.put("url","http://"+masterIp+":"+nodePort);
                     }
                     maps.add(map);
                 }
