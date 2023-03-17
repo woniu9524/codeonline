@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: zhangcheng
@@ -36,8 +37,8 @@ public interface LabMapper {
     /*------------------------------------------------------------*/
 
      /*通过labId查询实验*/
-    @Select("select * from business_lab where lab_id = #{labId}")
-    Lab queryLabByLabId(@Param("labId") Long labId);
+    @Select("SELECT lab_id,course_id,lab_name,lab_content,lab_start_time,lab_end_time,create_by,create_time,update_by,update_time,teacher_id,file_url,file_name FROM (select * from business_lab where lab_id = 1678556268265) AS t1 LEFT JOIN course_lab_file USING(lab_id,course_id)")
+    Map<String,String> queryLabByLabId(@Param("labId") Long labId);
 
     /* 根据labId删除k8s配置 */
     @Delete("delete from k8s_configure where id in (select configure_id from k8s_configure_relation where lab_id=#{labId})")
@@ -76,6 +77,7 @@ public interface LabMapper {
     /* 查询labId下全部成绩 */
     @Select("select * from business_user_lab_score where lab_id = #{labId}")
     List<StudentLabScore> queryAllLabScoreByLabId(@Param("labId") Long experimentId);
+
 
 }
 

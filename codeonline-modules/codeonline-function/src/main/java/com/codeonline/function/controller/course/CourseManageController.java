@@ -6,6 +6,7 @@ import com.codeonline.function.domain.Lab;
 import com.codeonline.function.service.course.CourseManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author: zhangcheng
@@ -77,4 +78,11 @@ public class CourseManageController {
         return courseManageService.deleteExperimentFromCourse(experimentId);
     }
 
+    /*------------------------------------------------------------*/
+    /* 上传实验资料 */
+    @PostMapping("experiments/{courseId}/files")
+    public AjaxResult uploadExperimentFile(@RequestParam MultipartFile experimentFile, @PathVariable Long courseId){
+        Long teacherId = SecurityUtils.getUserId();
+        return courseManageService.uploadExperimentFile(courseId,teacherId, experimentFile);
+    }
 }
