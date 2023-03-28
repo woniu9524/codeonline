@@ -14,26 +14,26 @@
 
 ## 功能预览
 
-![01](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\01.png)
+![01](img/01.png)
 
-![02](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\02.png)
+![02](img/02.png)
 
-![03](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\03.png)
+![03](img/03.png)
 
-![04](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\04.png)
+![04](img/04.png)
 
-![05](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\05.png)
+![05](img/05.png)
 
-![06](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\06.png)
+![06](img/06.png)
 
-![07](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\07.png)
+![07](img/07.png)
 
-![08](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\08.png)
+![08](img/08.png)
 
-![09](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\09.png)
+![09](img/09.png)
 
-![10](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\10.png)
+![10](img/10.png)
 
-![11](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\11.png)
+![11](img/11.png)
 
-![12](E:\Web\OnlineCodeLearnPlatform\codeonlie-frontend\img\12.png)
+![12](img/12.png)
