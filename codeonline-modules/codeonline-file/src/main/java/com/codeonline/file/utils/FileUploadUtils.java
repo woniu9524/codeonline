@@ -23,9 +23,9 @@ import com.codeonline.common.core.utils.uuid.Seq;
 public class FileUploadUtils
 {
     /**
-     * 默认大小 50M
+     * 默认大小 4G
      */
-    public static final long DEFAULT_MAX_SIZE = 50 * 1024 * 1024;
+    public static final long DEFAULT_MAX_SIZE = 4*1024 * 1024 * 1024;
 
     /**
      * 默认的文件名最大长度 100

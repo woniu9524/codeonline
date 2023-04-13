@@ -23,3 +23,7 @@ spring:
         # 共享配置
         shared-configs:
           - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+  servlet:
+    multipart:
+      max-file-size: 4096MB
+      max-request-size: 4096MB
