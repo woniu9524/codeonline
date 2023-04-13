@@ -35,6 +35,8 @@ public class CourseManageController {
         return courseManageService.addStudentToCourse(courseId, studentId);
     }
 
+
+
     /* 删除学生从课程 */
     @DeleteMapping("students/{courseId}/{studentId}")
     public AjaxResult deleteStudentFromCourse(@PathVariable Long courseId, @PathVariable Long studentId){

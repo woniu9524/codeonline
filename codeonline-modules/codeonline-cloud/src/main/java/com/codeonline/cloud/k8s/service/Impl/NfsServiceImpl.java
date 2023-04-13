@@ -25,7 +25,7 @@ public class NfsServiceImpl implements INfsService {
         Long courseId = nfsMapper.selectCourseIdByLabId(labId);
         Long teacherId = nfsMapper.selectUserIdByCourseId(courseId);
         // TODO 这里位置要改
-        nfsBasePath = "C:/Users/Administrator/Desktop/data/nfs";
+//        nfsBasePath = "C:/Users/Administrator/Desktop/data/nfs";
         List<Map<String, Object>> fileTree = new ArrayList<>();
         String path = "";
         if (Objects.equals(teacherId, userId)) {

@@ -4,7 +4,7 @@
  Source Server         : zzl腾讯云
  Source Server Type    : MySQL
  Source Server Version : 50741 (5.7.41)
- Source Host           : 101.43.141.205:3306
+ Source Host           : 127.0.0.1:3306
  Source Schema         : ry-cloud
 
  Target Server Type    : MySQL
