@@ -238,7 +238,7 @@ public class K8sServiceImpl implements IK8sService {
         for (Map<String, String> portMap : k8sConfigure.getPorts()) {
             Map<String,Integer> port=new HashMap<>();
             if (!"no".equals(portMap.get("service"))){
-                port.put("nodePort",k8sUtil.readNodePortCanUse());
+//                port.put("nodePort",k8sUtil.readNodePortCanUse());
             }
             port.put("port", Integer.valueOf(portMap.get("port")));
             port.put("targetPort", Integer.valueOf(portMap.get("targetPort")));

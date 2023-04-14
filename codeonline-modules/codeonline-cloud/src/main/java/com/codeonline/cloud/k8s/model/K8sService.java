@@ -60,9 +60,9 @@ public class K8sService {
             servicePort.setPort(port.get("port"));
             servicePort.setTargetPort(new IntOrString(port.get("targetPort")));
             servicePort.setProtocol("TCP");
-            if (port.get("nodePort")!=null){
-                servicePort.setNodePort(port.get("nodePort"));
-            }
+//            if (port.get("nodePort")!=null){
+//                servicePort.setNodePort(port.get("nodePort"));
+//            }
             servicePorts.add(servicePort);
         }
     }
