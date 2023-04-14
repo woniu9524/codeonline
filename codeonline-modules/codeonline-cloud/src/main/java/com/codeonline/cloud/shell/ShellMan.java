@@ -31,7 +31,7 @@ public class ShellMan {
     }
 
     public String exec(String cmd,boolean enable) throws IOException {
-        if ("true".equals(enable)){
+        if (enable){
             return sshShellStrategyImpl.exec(cmd);
         }else {
             return localShellStrategyImpl.exec(cmd);
