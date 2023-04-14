@@ -224,8 +224,8 @@ public class K8sServiceImpl implements IK8sService {
         // 提前创建nfs目录
         String nfsPathNew = this.nfsPath + "/" + teacherId + "/" + labId+ "/" + studentId;
         if(!StringUtils.isEmpty(k8sConfigure.getVolume())){
-            shellMan.exec("mkdir -p "+nfsPathNew);
-            shellMan.exec("chmod 777 "+nfsPathNew);
+            shellMan.exec("mkdir -p "+nfsPathNew,true);
+            shellMan.exec("chmod 777 "+nfsPathNew,true);
         }
 
         K8sDeployment k8sDeployment = new K8sDeployment(k8sConfigure,labId,String.valueOf(studentId),String.valueOf(teacherId),nfsPathNew,nfsServer);

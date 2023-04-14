@@ -29,4 +29,12 @@ public class ShellMan {
             return localShellStrategyImpl.exec(cmd);
         }
     }
+
+    public String exec(String cmd,boolean enable) throws IOException {
+        if ("true".equals(enable)){
+            return sshShellStrategyImpl.exec(cmd);
+        }else {
+            return localShellStrategyImpl.exec(cmd);
+        }
+    }
 }
