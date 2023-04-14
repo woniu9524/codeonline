@@ -157,6 +157,7 @@ public class UploadServiceImpl implements IUploadService {
         pushImage(path, sourceImageName,sourceImageName);
         // 判断是否推送成功
         if (hasPushed(sourceImageName)) {
+            log.info("推送成功");
             // 更新数据库
             harborUploadMapper.insertHarborUpload(harborUpload);
             redisService.setCacheObject(harborKey, "上传成功", 10l, TimeUnit.MINUTES);
@@ -224,6 +225,7 @@ public class UploadServiceImpl implements IUploadService {
         String name = sourceImageName.split(":")[0];
         String tag = sourceImageName.split(":")[1];
         Repository repository = repositoryApi.getRepository(name);
+        log.info("repository:{}", repository);
         if (repository == null) {
             return false;
         }
