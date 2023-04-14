@@ -99,14 +99,14 @@ public class UploadServiceImpl implements IUploadService {
         path = domain + path;
         //TODO 此处假设path为：/root/test/base-centos.tar
 //        path = "/root/test/jupyter-base.jar";
-        log.warn(path);
+        log.info(path);
         /*
         * 使用命令的方式，加载镜像，打标签，登录harbor，再推送到harbor中去
         * */
         String sourceImageName;
         String targetImageName= harborUpload.getImageName() + ":" + harborUpload.getImageTag();
         // 选用load的方式
-        log.warn(targetImageName);
+        log.info(targetImageName);
         String loadCMD = "docker load -i " + path;
         try {
             sourceImageName = shellMan.exec(loadCMD);//Loaded image: base-centos:1.0.0
@@ -136,7 +136,7 @@ public class UploadServiceImpl implements IUploadService {
         String[] split = url.split("http://.*?statics/");
         String path = split[1];
         path = domain + path;
-        log.warn(path);
+        log.info(path);
         //TODO 此处假设path为：/root/test/base-centos.tar
 //        path = "/root/test/base-vscode.tar";
 
@@ -146,7 +146,7 @@ public class UploadServiceImpl implements IUploadService {
         String sourceImageName = harborUpload.getImageName() + ":" + harborUpload.getImageTag();
         // 选用import的方式，不用load，因为load不能指定tag
         String importCMD = "docker import " + path + " " + sourceImageName;
-        log.warn(importCMD);
+        log.info(importCMD);
         try {
             shellMan.exec(importCMD);//Loaded image: base-centos:1.0.0
         } catch (IOException e) {
@@ -168,7 +168,7 @@ public class UploadServiceImpl implements IUploadService {
     public void pushImage(String path, String sourceImageName,String targetImageName) {
         // 打标签  SOURCE_IMAGE[:TAG] 192.168.3.77:30002/codeonline-dev/REPOSITORY[:TAG]
         String tagCMD = String.format("docker tag %s %s/%s/%s", sourceImageName, harborUrl, harborSpace, targetImageName);
-        log.warn(tagCMD);
+        log.info(tagCMD);
         try {
             shellMan.exec(tagCMD);
         } catch (IOException e) {
@@ -187,7 +187,7 @@ public class UploadServiceImpl implements IUploadService {
         }
         // 推送到harbor docker push 192.168.3.77:30002/codeonline-all/REPOSITORY[:TAG]
         String pushCMD = String.format("docker push %s/%s/%s", harborUrl, harborSpace, targetImageName);
-        log.warn(pushCMD);
+        log.info(pushCMD);
         try {
             shellMan.exec(pushCMD);
         } catch (IOException e) {
