@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UploadServiceImpl implements IUploadService {
 
-    private static final String BaseUrl = "D:/ruoyi/uploadPath/";
+//    private static final String BaseUrl = "D:/ruoyi/uploadPath/";
 
     @Autowired
     private ShellMan shellMan;
@@ -56,7 +56,7 @@ public class UploadServiceImpl implements IUploadService {
         String url = harborUpload.getImageUrl();
         String[] split = url.split("http://.*?statics/");
         String path = split[1];
-        path = BaseUrl + path;
+        path = domain + path;
         //TODO 此处假设path为：/root/test/dockerfile123
 //        path = "/root/test/codeServer-dockerfile";
         //docker build
@@ -94,7 +94,7 @@ public class UploadServiceImpl implements IUploadService {
         String url = harborUpload.getImageUrl();
         String[] split = url.split("http://.*?statics/");
         String path = split[1];
-        path = BaseUrl + path;
+        path = domain + path;
         //TODO 此处假设path为：/root/test/base-centos.tar
 //        path = "/root/test/jupyter-base.jar";
 
@@ -133,7 +133,7 @@ public class UploadServiceImpl implements IUploadService {
         String url = harborUpload.getImageUrl();
         String[] split = url.split("http://.*?statics/");
         String path = split[1];
-        path = BaseUrl + path;
+        path = domain + path;
         //TODO 此处假设path为：/root/test/base-centos.tar
 //        path = "/root/test/base-vscode.tar";
 
