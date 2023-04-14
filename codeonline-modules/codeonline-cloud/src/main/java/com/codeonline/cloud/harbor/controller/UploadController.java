@@ -17,6 +17,7 @@ import com.codeonline.common.redis.service.RedisService;
 import com.codeonline.common.security.utils.SecurityUtils;
 import com.codeonline.system.api.RemoteFileService;
 import com.codeonline.system.api.domain.SysFile;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
+@Slf4j
 @RequestMapping("/harbor/upload")
 public class UploadController {
 
@@ -63,6 +65,7 @@ public class UploadController {
         // 通过uuid获取文件信息
         String fileKey = CacheConstants.HARBOR_FILE_KEY + harborUploadVo.getUuid();
         String url = redisService.getCacheObject(fileKey);
+        log.info("url:{}", url);
         if (url == null) {
             return AjaxResult.error("文件不存在");
         }
