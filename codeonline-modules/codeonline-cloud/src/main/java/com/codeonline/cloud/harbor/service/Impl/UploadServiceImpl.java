@@ -58,7 +58,7 @@ public class UploadServiceImpl implements IUploadService {
         String url = harborUpload.getImageUrl();
         String[] split = url.split("http://.*?statics/");
         String path = split[1];
-        path = domain + path;
+        path = localFilePath + path;
         //TODO 此处假设path为：/root/test/dockerfile123
 //        path = "/root/test/codeServer-dockerfile";
         //docker build
@@ -96,7 +96,7 @@ public class UploadServiceImpl implements IUploadService {
         String url = harborUpload.getImageUrl();
         String[] split = url.split("http://.*?statics/");
         String path = split[1];
-        path = domain + path;
+        path = localFilePath + path;
         //TODO 此处假设path为：/root/test/base-centos.tar
 //        path = "/root/test/jupyter-base.jar";
         log.info(path);
@@ -133,9 +133,10 @@ public class UploadServiceImpl implements IUploadService {
          * 截取目录和文件名
          * */
         String url = harborUpload.getImageUrl();
+        log.warn(url);
         String[] split = url.split("http://.*?statics/");
         String path = split[1];
-        path = domain + path;
+        path = localFilePath + path;
         log.info(path);
         //TODO 此处假设path为：/root/test/base-centos.tar
 //        path = "/root/test/base-vscode.tar";
