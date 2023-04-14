@@ -8,6 +8,7 @@ import com.codeonline.common.core.constant.Constants;
 import com.codeonline.common.core.domain.R;
 import com.codeonline.common.core.utils.DateUtils;
 import com.codeonline.common.core.utils.StringUtils;
+import com.codeonline.common.core.utils.file.FileUtils;
 import com.codeonline.common.core.utils.uuid.IdUtils;
 import com.codeonline.common.core.web.domain.AjaxResult;
 import com.codeonline.common.log.annotation.Log;
@@ -29,8 +30,8 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/harbor/upload")
 public class UploadController {
 
-    @Autowired
-    private RemoteFileService remoteFileService;
+//    @Autowired
+//    private RemoteFileService remoteFileService;
 
     @Autowired
     private IUploadService uploadService;
@@ -39,22 +40,24 @@ public class UploadController {
     private RedisService redisService;
 
     //上传文件
-    @Log(title = "harbor上传",businessType = BusinessType.INSERT)
+    @Log(title = "harbor上传", businessType = BusinessType.INSERT)
     @PostMapping("/file")
-    public AjaxResult uploadFilde(@RequestParam("file") MultipartFile uploadFile) {
-        R<SysFile> result = remoteFileService.upload(uploadFile);
-        if (result.getCode()==200){
-            // 缓存文件信息
-            String uuid = IdUtils.simpleUUID();
-            String fileKey = CacheConstants.HARBOR_FILE_KEY + uuid;
-            redisService.setCacheObject(fileKey, result.getData().getUrl(), Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);//不直接返回url，防止泄露
-            return AjaxResult.success(uuid);
-        }
-        return AjaxResult.error(result.getMsg());
+    public AjaxResult uploadFilde(@RequestParam("file") MultipartFile uploadFile) throws Exception {
+        String url = uploadService.uploadFile(uploadFile);
+        SysFile sysFile = new SysFile();
+        sysFile.setName(FileUtils.getName(url));
+        sysFile.setUrl(url);
+
+        // 缓存文件信息
+        String uuid = IdUtils.simpleUUID();
+        String fileKey = CacheConstants.HARBOR_FILE_KEY + uuid;
+        redisService.setCacheObject(fileKey, sysFile.getUrl(), Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);//不直接返回url，防止泄露
+        return AjaxResult.success(uuid);
+
     }
 
     //上傳表單
-    @Log(title = "harbor上传",businessType = BusinessType.INSERT)
+    @Log(title = "harbor上传", businessType = BusinessType.INSERT)
     @PostMapping("/table")
     public AjaxResult uploadTable(@RequestBody @Validated HarborUploadVo harborUploadVo) {
         // 通过uuid获取文件信息
@@ -65,19 +68,19 @@ public class UploadController {
         }
         harborUploadVo.setUrl(url);
         // 獲取用戶ID和用户名
-        Long userid =SecurityUtils.getUserId();
+        Long userid = SecurityUtils.getUserId();
         String username = SecurityUtils.getUsername();
         // 儅沒有名字的時候隨便寫個名字
-        if(StringUtils.isEmpty(harborUploadVo.getEnvironmentName())){
+        if (StringUtils.isEmpty(harborUploadVo.getEnvironmentName())) {
             harborUploadVo.setEnvironmentName(IdUtils.simpleUUID());
         }
-        if(StringUtils.isEmpty(harborUploadVo.getTag())){
+        if (StringUtils.isEmpty(harborUploadVo.getTag())) {
             harborUploadVo.setTag("randomTag");
         }
 
         // 将信息放到HarborUpload中
         HarborUpload harborUpload = new HarborUpload();
-        harborUpload.setImageName(userid +"_"+harborUploadVo.getEnvironmentName());
+        harborUpload.setImageName(userid + "_" + harborUploadVo.getEnvironmentName());
         harborUpload.setImageTag(harborUploadVo.getTag());
         harborUpload.setImageUrl(url);
         harborUpload.setPublic(harborUploadVo.isPublic());
@@ -93,15 +96,15 @@ public class UploadController {
         Map<String, String> resultMap = new HashMap<>();
         resultMap.put("uploadToken", uuid);
         //判断是dockerfile还是镜像文件
-        switch (harborUploadVo.getUploadType()){
+        switch (harborUploadVo.getUploadType()) {
             case "dockerfile":
-                uploadService.dockerfileToImageAndPush(harborUpload,harborKey);
+                uploadService.dockerfileToImageAndPush(harborUpload, harborKey);
                 break;
             case "image":
-                uploadService.loadImageAndPush(harborUpload,harborKey);
+                uploadService.loadImageAndPush(harborUpload, harborKey);
                 break;
             case "container":
-                uploadService.importImageAndPush(harborUpload,harborKey);
+                uploadService.importImageAndPush(harborUpload, harborKey);
                 break;
             default:
                 return AjaxResult.error("上传类型错误");
@@ -110,7 +113,7 @@ public class UploadController {
 
     }
 
-    @Log(title = "harbor上传",businessType = BusinessType.INSERT)
+    @Log(title = "harbor上传", businessType = BusinessType.INSERT)
     @GetMapping("/status/{uploadToken}")
     public AjaxResult getUploadStatus(@PathVariable String uploadToken) {
         String harborKey = CacheConstants.HARBOR_ASYNC_UPLOAD_KEY + uploadToken;
@@ -119,7 +122,7 @@ public class UploadController {
 
         if (result == null) {
             resultMap.put("status", "上传中");
-        }else {
+        } else {
             resultMap.put("status", result);
         }
         return AjaxResult.success(resultMap);
